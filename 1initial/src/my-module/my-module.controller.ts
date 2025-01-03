@@ -7,7 +7,13 @@ export class MyModuleController {
 
     // Here comes in the constructor 
     // It creates in the instance of the user service 
-    constructor(private readonly myModuleService:MyModuleService)
+    constructor(private readonly myModuleService:MyModuleService){
+
+    }
+
+    // The above dependency injection can be replicated and understood by 
+    // const myModuleService = new MyModuleService()
+    // The above thing nest does automatically for you  
 
     
     // Trying in to develop a rest api here 
@@ -25,7 +31,7 @@ export class MyModuleController {
     @Get() 
     getUsers(@Query('role') role?: 'INTERN' | 'ENGINEER'){
         // Returning in an empty array for now 
-        return []
+        return this.getUsers(role)
     }
 
     // The below decorator will fetch in the user id eventually with no issues 
@@ -40,32 +46,39 @@ export class MyModuleController {
         // and in the function below 
         // take out the param with the help of the param decorator and specify in the id and the type of param you are expecting in
 
-        return [id]
+        return this.myModuleService.getUserWithId(id)
 
 
     }
 
     @Get("interns")
     findInAllInterns(){
-        return []
+        return this.myModuleService.getUsers('INTERN')
     }
 
+    // here we are taking in the body and storing it in a variable called user and type checking that
+    // the user body must be in this format before giving it to the service 
+
+    // and in service too we are checking in the format of the user once and then creating in a useer 
     @Post()
-    createUser(@Body() user: {}){
-        return user 
+    createUser(@Body() user:{name: string, email: string,role: 'INTERN' | 'Admin'}){
+        return this.myModuleService.createUser(user)
     }
 
 // The logic will be handled in the service file 
 // Creating in the patch route 
 
-    @Patch(":id")
-    updateUserInfo(@Param('id') id:string,@Body() userUpdate:{}){
-         return {id, ...userUpdate}
-    }
+        @Patch(":id")
+        updateUserInfo(
+        @Param('id') id: string,
+        @Body() updatedUser: { name: string; email: string; role: 'INTERN' | 'Admin' }
+        ) {
+        return this.myModuleService.update(id, updatedUser);
+        }
 
     @Delete(":id")
     deletUserInNest(@Param('id') id:string){
-        return [id]
+        return this.myModuleService.delete(id)
     }
 
 }
