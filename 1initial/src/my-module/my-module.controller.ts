@@ -1,9 +1,15 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Query} from '@nestjs/common';
+import { MyModuleService } from './my-module.service';
 
 @Controller('my-module') // It makes it localhost:/my-module It is doing in that 
+
 export class MyModuleController {
 
+    // Here comes in the constructor 
+    // It creates in the instance of the user service 
+    constructor(private readonly myModuleService:MyModuleService)
 
+    
     // Trying in to develop a rest api here 
 
     // What we are trying to do 
@@ -26,7 +32,7 @@ export class MyModuleController {
     @Get(":id") // The route from here becomes in the localhost:3000/my-module/:id
     // The above specified will be the path for the request 
 
-    
+
     getUserWithId(@Param('id')id: string){
         // Like to fetch in a param 
         // from the requests
