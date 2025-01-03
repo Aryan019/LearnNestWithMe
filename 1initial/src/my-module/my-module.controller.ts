@@ -25,6 +25,8 @@ export class MyModuleController {
     // The below decorator will fetch in the user id eventually with no issues 
     @Get(":id") // The route from here becomes in the localhost:3000/my-module/:id
     // The above specified will be the path for the request 
+
+    
     getUserWithId(@Param('id')id: string){
         // Like to fetch in a param 
         // from the requests
