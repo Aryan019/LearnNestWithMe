@@ -5,3 +5,4 @@ for different concepts of the NestJS
 - Setting up the controllers
 - Using in the services
 - Connecting the services with the controllers 
+- DTO Validation and error handling 

@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query} from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query, ParseIntPipe } from '@nestjs/common';
 import { MyModuleService } from './my-module.service';
 
 @Controller('my-module') // It makes it localhost:/my-module It is doing in that 
@@ -79,6 +79,6 @@ export class MyModuleController {
     @Delete(":id")
     deletUserInNest(@Param('id') id:string){
         return this.myModuleService.delete(id)
-    }
+    } 
 
 }
