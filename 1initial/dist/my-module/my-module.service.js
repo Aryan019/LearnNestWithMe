@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MyModuleService = void 0;
 const common_1 = require("@nestjs/common");
+const common_2 = require("@nestjs/common");
 let MyModuleService = class MyModuleService {
     constructor() {
         this.userDocs = [
@@ -39,12 +40,18 @@ let MyModuleService = class MyModuleService {
     }
     getUsers(role) {
         if (role) {
-            return this.userDocs.filter(user => user.role === role);
+            const rolesArray = this.userDocs.filter(user => user.role === role);
+            if (!rolesArray.length) {
+                throw new common_2.NotFoundException(`No users with role ${role} found`);
+            }
+            return rolesArray;
         }
         return this.userDocs;
     }
     getUserWithId(id) {
         const user = this.userDocs.find(user => user.id === id);
+        if (!user)
+            throw new common_2.NotFoundException(`User with id ${id} not found`);
         return user;
     }
     createUser(user) {

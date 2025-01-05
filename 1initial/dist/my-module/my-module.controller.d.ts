@@ -1,4 +1,5 @@
 import { MyModuleService } from './my-module.service';
+import { CreateUserDto } from './dto/create-user-dto';
 export declare class MyModuleController {
     private readonly myModuleService;
     constructor(myModuleService: MyModuleService);
@@ -15,11 +16,7 @@ export declare class MyModuleController {
         email: string;
         role: string;
     }[];
-    createUser(user: {
-        name: string;
-        email: string;
-        role: 'INTERN' | 'Admin';
-    }): {
+    createUser(user: CreateUserDto): {
         name: string;
         email: string;
         role: "INTERN" | "Admin";

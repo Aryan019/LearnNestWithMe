@@ -21,7 +21,7 @@ datasource db {
 model Employee{
   //id  Int   @id @default(autoincrement()) // This will give it an unique id automatically and increment it automatically 
   // whenever needed in 
-  id String @unique
+  id Int @unique
   name String 
   email String @unique
   role  Role 
