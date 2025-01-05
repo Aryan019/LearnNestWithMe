@@ -2,6 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user-dto';
 import { UpdateUserDto } from './dto/update-user-dto';
 
+// Importing in the exceptions for the error handling 
+import { NotFoundException } from '@nestjs/common';
+
 // This are the providers class and the service file in nest js 
 @Injectable()
 export class MyModuleService {
@@ -38,10 +41,23 @@ export class MyModuleService {
     ]
 
     // Getting in all the users based on the role and the number of users
+
+    // If like role is not provided then it will return all the users
+    // but if we put in the random role which is actually not in there 
+    // then it is returning out an empty array npt any users 
+
+
+    // so handling that with the erorr handling exceptions and all 
     getUsers(role?:"Admin" | "INTERN"){
 
+        let rolesArray = []
+
         if(role){
-        return this.userDocs.filter(user => user.role === role)
+         rolesArray =  this.userDocs.filter(user => user.role === role)
+        }
+
+        if(rolesArray.length === 0){{
+            throw new NotFoundException(`Users with role ${role} not found`)
         }
 
         return this.userDocs
@@ -52,6 +68,8 @@ export class MyModuleService {
 
     getUserWithId(id:string){
         const user = this.userDocs.find(user=> user.id===id)
+
+        if(!user) throw new NotFoundException(`User with id ${id} not found`)
         return user
     }
 
