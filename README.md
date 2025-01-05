@@ -9,3 +9,4 @@ for different concepts of the NestJS
 - Exceptions in Nest 
 - MOre rest apis
 - Connecting in with NeonDB(Serverless db) through Prisma 
+- Another new module connected with prisma through the rest apis 
