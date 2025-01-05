@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
-
+import { CreateUserDto } from './dto/create-user-dto';
+import { UpdateUserDto } from './dto/update-user-dto';
 
 // This are the providers class and the service file in nest js 
 @Injectable()
@@ -56,7 +57,7 @@ export class MyModuleService {
 
     // for this request like we will receive in different params so typechecking them 
     // and putting in a validation on them 
-    createUser(user:{name: string, email: string,role: 'INTERN' | 'Admin'}){
+    createUser(user:CreateUserDto){
         const randomId = "a2678bkh"
 
         // New randomId and then the simple info of the user that we have received in 
@@ -71,8 +72,8 @@ export class MyModuleService {
 
     }
 
-    update(id: string, updatedUser:{name: string, email: string,role: 'INTERN' | 'Admin'}) {
-        this.userDocs = this.userDocs.map(user => {
+    update(id: string, updatedUser: UpdateUserDto) {
+        this.userDocs = this.userDocs.map(user => { 
             if (user.id === id) {
                 return { ...user}
             }

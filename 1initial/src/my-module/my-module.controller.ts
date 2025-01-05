@@ -1,5 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Query, ParseIntPipe } from '@nestjs/common';
 import { MyModuleService } from './my-module.service';
+import { CreateUserDto } from './dto/create-user-dto';
+import { UpdateUserDto } from './dto/update-user-dto';
 
 @Controller('my-module') // It makes it localhost:/my-module It is doing in that 
 
@@ -61,7 +63,7 @@ export class MyModuleController {
 
     // and in service too we are checking in the format of the user once and then creating in a useer 
     @Post()
-    createUser(@Body() user:{name: string, email: string,role: 'INTERN' | 'Admin'}){
+    createUser(@Body() user : CreateUserDto){
         return this.myModuleService.createUser(user)
     }
 
