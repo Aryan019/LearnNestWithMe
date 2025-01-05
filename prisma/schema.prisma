@@ -8,7 +8,30 @@ generator client {
   provider = "prisma-client-js"
 }
 
+// prisma/schema.prisma
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url  	    = env("DATABASE_URL")
+  // uncomment next line if you use Prisma <5.10
+  // directUrl = env("DATABASE_URL_UNPOOLED")
+}
+
+
+// Defining in our model 
+model Employee{
+  //id  Int   @id @default(autoincrement()) // This will give it an unique id automatically and increment it automatically 
+  // whenever needed in 
+  id String @unique
+  name String 
+  email String @unique
+  role  Role 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+
+
+enum Role{
+  INTERN
+  Admin 
 }
