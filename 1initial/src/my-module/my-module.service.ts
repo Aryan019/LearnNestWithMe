@@ -50,15 +50,17 @@ export class MyModuleService {
     // so handling that with the erorr handling exceptions and all 
     getUsers(role?:"Admin" | "INTERN"){
 
-        let rolesArray = []
-
         if(role){
-         rolesArray =  this.userDocs.filter(user => user.role === role)
+        const rolesArray =  this.userDocs.filter(user => user.role === role)
+
+        if(!rolesArray.length){
+            throw new NotFoundException(`No users with role ${role} found`)
+        }
+        return rolesArray
+        
         }
 
-        if(rolesArray.length === 0){{
-            throw new NotFoundException(`Users with role ${role} not found`)
-        }
+      
 
         return this.userDocs
     }
